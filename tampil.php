@@ -3,18 +3,10 @@ $page = $_GET['page'] ?? 'home';
 $title = ucfirst($page);
 
 include 'header.php';
-include 'koneksi.php';
 
-$hal = 1; // Default halaman 1
-if (isset($_GET['hal'])) {
-    $hal = $_GET['hal'];
-}
 
-$maxtampil = 3; // Jumlah data yang ditampilkan per halaman
-$dari = ($hal * $maxtampil) - $maxtampil;
 
-// Menampilkan data mahasiswa dengan paginasi
-$data = mysqli_query($connect, "SELECT * FROM data_mahasiswa ORDER BY nim ASC LIMIT $dari, $maxtampil");
+
 if ($data) {
 ?>
     <div class="container mt-5">

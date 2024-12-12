@@ -5,7 +5,6 @@ $page = $_GET['page'] ?? 'home';
 $title = ucfirst($page);
 
 include 'header.php';
-include 'koneksi.php';
 
 if (isset($_POST["simpanData"])) {
     $nim = $_POST['nim'];
@@ -15,12 +14,10 @@ if (isset($_POST["simpanData"])) {
     $studi = $_POST['studi'];
     $telp = $_POST['telp'];
 
-    // Cek apakah nim sudah terdaftar
     $cek = mysqli_query($connect, "SELECT * FROM data_mahasiswa WHERE nim='$nim'");
     if (mysqli_num_rows($cek) >= 1) {
         echo "NIM telah terdaftar <br>";
     } else {
-        // Validasi input
         if ($nim == '') {
             echo 'NIM belum diisi<br>';
         }
@@ -40,7 +37,6 @@ if (isset($_POST["simpanData"])) {
             echo 'telp belum diisi<br>';
         }
 
-        // Jika semua input valid, masukkan data ke database
         if ($nim != '' && $nama != '' && $jk != '' && $alamat != '' && $studi != '' && $telp != '') {
             $insert = mysqli_query($connect, "INSERT INTO data_mahasiswa (nim, nama, jk, alamat, studi, telp) VALUES ('$nim', '$nama', '$jk','$alamat', '$studi', '$telp')");
 
@@ -118,7 +114,5 @@ if (isset($_POST["simpanData"])) {
     </div>
 </div>
 
-</body>
 
-</html>
 <?php include 'footer.php'; ?>

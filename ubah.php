@@ -3,18 +3,8 @@ $page = $_GET['page'] ?? 'home';
 $title = ucfirst($page);
 
 include 'header.php';
-include 'koneksi.php';
 
-$hal = 1; // Default halaman 1
-if (isset($_GET['hal'])) {
-    $hal = $_GET['hal'];
-}
 
-$maxtampil = 3; // Jumlah data yang ditampilkan per halaman
-$dari = ($hal * $maxtampil) - $maxtampil;
-
-// Menampilkan data mahasiswa dengan paginasi
-$data = mysqli_query($connect, "SELECT * FROM data_mahasiswa ORDER BY nim ASC LIMIT $dari, $maxtampil");
 if ($data) {
 ?>
     <div class="container mt-5">
@@ -55,7 +45,6 @@ if ($data) {
     echo "Query gagal: " . mysqli_error($connect);
 }
 
-// Menampilkan navigasi halaman
 echo '<div class="container mt-4">';
 echo '<h4>Halaman: </h4>';
 $qrydata = mysqli_query($connect, "SELECT * FROM data_mahasiswa");
@@ -64,9 +53,7 @@ if ($qrydata) {
     $jumlahdata = mysqli_num_rows($qrydata);
     $totalhalaman = ceil($jumlahdata / $maxtampil);
 
-    // Loop untuk membuat link halaman
     for ($i = 1; $i <= $totalhalaman; $i++) {
-        // Menampilkan link dengan jarak antar halaman
         echo '<a href="tampil.php?hal=' . $i . '" class="btn btn-primary mx-1">' . $i . '</a>';
     }
 } else {
